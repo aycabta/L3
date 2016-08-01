@@ -2,7 +2,7 @@
 // @name        L3: Lingr Log Loader
 // @namespace   http://aycabta.github.io/
 // @include     http://lingr.com/
-// @version     0.0.1
+// @version     0.0.2
 // @description Add "Load log" button
 // @grant       none
 // @copyright   2016+, Code Ass
