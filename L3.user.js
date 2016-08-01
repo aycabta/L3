@@ -90,7 +90,7 @@
             loadingIcon.style.top = '0px';
             loadingIcon.style.left = '0px';
             var loadingMedia = document.createElement('img');
-            loadingMedia.src = 'http://img.gifmagazine.net/gifmagazine/images/733834/original.gif';
+            loadingMedia.src = 'http://embed.gyazo.com/9cc2d63c47e9ffe1978fafede01e33ce.gif';
             loadingMedia.height = 40;
             loadingIcon.appendChild(loadingMedia);
             readmore.parentNode.parentNode.appendChild(loadingIcon, readmore);
