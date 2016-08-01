@@ -35,7 +35,7 @@
         var lastHash;
         for (var i = messagesLog.snapshotLength - 1; i >= 0; i--) {
             var message = messagesLog.snapshotItem(i);
-            messagesContainer.prepend(message);
+            messagesContainer.insertBefore(message, messagesContainer.firstChild);
             lastHash = message.id;
         }
         return lastHash;
