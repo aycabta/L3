@@ -32,7 +32,6 @@
             xpath = '//div[contains(@class, "message")]';
         }
         var messagesLog = document.evaluate(xpath, messages, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-        var insertPointer = messagesContainer.firstChild;
         var lastHash;
         for (var i = messagesLog.snapshotLength - 1; i >= 0; i--) {
             var message = messagesLog.snapshotItem(i);
