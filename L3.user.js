@@ -43,8 +43,8 @@
     function loadLog(readmore) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', readmore.href, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
+        xhr.addEventListener('loadend', function() {
+            if (xhr.status == 200) {
                 var domParser = new DOMParser();
                 var domObj = domParser.parseFromString(xhr.responseText, 'text/html');
                 var hash;
@@ -58,7 +58,7 @@
                 readmore.href = domObj.getElementsByClassName('prev')[0].firstChild.href;
                 readmore.dataset.hash = lastHash;
             }
-        };
+        });
         xhr.send(null);
     }
     function run() {
