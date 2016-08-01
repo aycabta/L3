@@ -40,7 +40,14 @@
         }
         return lastHash;
     }
-    function loadLog(readmore) {
+    function loadLog(readmore, loadlogButton) {
+        var loadingIcon = readmore.parentNode.parentNode.getElementsByClassName('krkrchn')[0];
+        if (loadlogButton.dataset.loading === 'krkrchn') {
+            console.log('krkrchn');
+            return;
+        }
+        loadlogButton.dataset.loading = 'krkrchn';
+        loadingIcon.style.display = 'inline';
         var xhr = new XMLHttpRequest();
         xhr.open('GET', readmore.href, true);
         xhr.addEventListener('loadend', function() {
@@ -50,14 +57,16 @@
                 var hash;
                 if (readmore.hash !== '') {
                     hash = readmore.hash.substring(1);
-                } else if (readmore.dataset.hash !== '') {
-                    hash = readmore.dataset.hash;
+                } else if (loadlogButton.dataset.hash !== '') {
+                    hash = loadlogButton.dataset.hash;
                 }
                 var messagesContainer = readmore.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('messages')[0];
                 var lastHash = processLog(messagesContainer, domObj, hash);
                 readmore.href = domObj.getElementsByClassName('prev')[0].firstChild.href;
-                readmore.dataset.hash = lastHash;
+                loadlogButton.dataset.hash = lastHash;
             }
+            loadingIcon.style.display = 'none';
+            loadlogButton.dataset.loading = '';
         });
         xhr.send(null);
     }
@@ -66,20 +75,31 @@
         var readmores = document.evaluate(xpath, document.body, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         for (var i = 0; i < readmores.snapshotLength; i++) {
             var readmore = readmores.snapshotItem(i);
-            var load = document.createElement('a');
-            load.innerHTML = 'Load log';
-            readmore.parentNode.insertBefore(load, readmore);
+            var loadlogButton = document.createElement('a');
+            loadlogButton.innerHTML = 'Load log';
+            readmore.parentNode.insertBefore(loadlogButton, readmore);
             readmore.parentNode.insertBefore(document.createTextNode(' '), readmore);
             var slash = document.createElement('span');
             slash.innerHTML = '/';
             readmore.parentNode.insertBefore(slash, readmore);
             readmore.parentNode.insertBefore(document.createTextNode(' '), readmore);
-            load.onclick = (function(rm) {
+            var loadingIcon = document.createElement('span');
+            loadingIcon.className = 'krkrchn';
+            loadingIcon.style.display = 'none';
+            loadingIcon.style.position = 'absolute';
+            loadingIcon.style.top = '0px';
+            loadingIcon.style.left = '0px';
+            var loadingMedia = document.createElement('img');
+            loadingMedia.src = 'http://img.gifmagazine.net/gifmagazine/images/733834/original.gif';
+            loadingMedia.height = 40;
+            loadingIcon.appendChild(loadingMedia);
+            readmore.parentNode.parentNode.appendChild(loadingIcon, readmore);
+            loadlogButton.onclick = (function(rm, llb) {
                 return function() {
-                    loadLog(rm);
+                    loadLog(rm, llb);
                     return false;
                 };
-            })(readmore);
+            })(readmore, loadlogButton);
         }
     };
     var intervalID = setInterval(function() {
