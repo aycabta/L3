@@ -62,7 +62,7 @@
                 }
                 var messagesContainer = readmore.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('messages')[0];
                 var lastHash = processLog(messagesContainer, domObj, hash);
-                readmore.href = domObj.getElementsByClassName('prev')[0].firstChild.href;
+                readmore.href = domObj.getElementsByClassName('prev')[0].firstChild.attributes['href'].value;
                 loadlogButton.dataset.hash = lastHash;
             }
             loadingIcon.style.display = 'none';
