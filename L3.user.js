@@ -47,6 +47,7 @@
             return;
         }
         loadlogButton.dataset.loading = 'krkrchn';
+        loadlogButton.style.color = '#CCC';
         loadingIcon.style.display = 'inline';
         var xhr = new XMLHttpRequest();
         xhr.open('GET', readmore.href, true);
@@ -66,6 +67,7 @@
                 loadlogButton.dataset.hash = lastHash;
             }
             loadingIcon.style.display = 'none';
+            loadlogButton.style.color = '';
             loadlogButton.dataset.loading = '';
         });
         xhr.send(null);
@@ -77,6 +79,7 @@
             var readmore = readmores.snapshotItem(i);
             var loadlogButton = document.createElement('a');
             loadlogButton.innerHTML = 'Load log';
+            loadlogButton.className = 'loadlog';
             readmore.parentNode.insertBefore(loadlogButton, readmore);
             readmore.parentNode.insertBefore(document.createTextNode(' '), readmore);
             var slash = document.createElement('span');
